@@ -14,9 +14,19 @@
       "id": "@sap/generator-fiori:basic",
       "version": "1.13.1",
       "toolsId": "acf4fa9d-1c53-47fa-944f-1fe8e2dbe2a1"
+    },
+    "dataSources": {
+      "ZIDOC_MONI_SRV": {
+        "uri": "/sap/opu/odata/sap/ZIDOC_MONI_SRV/",
+        "type": "OData",
+        "settings": {
+          "localUri": "localService/metadata.xml"
+        }
+      }
     }
   },
   "sap.ui": {
+    "fullWidth": true,
     "technology": "UI5",
     "icons": {
       "icon": "",
@@ -33,7 +43,8 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.102.2",
       "libs": {
@@ -57,6 +68,26 @@
         "settings": {
           "bundleName": "com.inetum.idocmonitor.i18n.i18n"
         }
+      },
+      "dataModel": {
+        "type": "sap.ui.model.json.JSONModel"
+      },
+      "servicesStatus": {
+          "type": "sap.ui.model.json.JSONModel",
+          "settings": {},
+          "uri": "model/status.json",
+          "preload": false
+      },
+      "": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "OneWay",
+          "defaultCountMode": "Inline",
+          "useBatch": false
+        },
+        "dataSource": "ZIDOC_MONI_SRV",
+        "preload": true
       }
     },
     "resources": {
@@ -83,6 +114,13 @@
           "target": [
             "TargetMaster"
           ]
+        },
+        {
+          "name": "RouteDetail",
+          "pattern": "/Detail",
+          "target": [
+            "TargetDetail"
+          ]
         }
       ],
       "targets": {
@@ -92,6 +130,13 @@
           "clearControlAggregation": false,
           "viewId": "Master",
           "viewName": "Master"
+        },
+        "TargetDetail": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Detail",
+          "viewName": "Detail"
         }
       }
     },

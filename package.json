@@ -9,13 +9,12 @@
     "sapui5"
   ],
   "main": "webapp/index.html",
-  "dependencies": {},
   "devDependencies": {
-    "@ui5/cli": "^3.0.0",
-    "@sap/ux-ui5-tooling": "1"
+    "@sap/ux-ui5-tooling": "^1.15.0",
+    "@ui5/cli": "^3.11.2"
   },
   "scripts": {
-    "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#cominetumidocmonitor-display\"",
+    "start": "fiori run --open \"test/flpSandbox.html?sap-language=es&sap-ui-xx-viewCache=false#cominetumidocmonitor-display\"",
     "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#cominetumidocmonitor-display\"",
     "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
     "deploy": "fiori verify",

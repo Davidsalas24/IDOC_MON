@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "IDOC Preparado p.transf",
+        "icon": "sap-icon://message-warning"
+    },
+    {
+        "id": 2,
+        "name": "Doc aplicación no contabilizada",
+        "icon": "sap-icon://status-error"
+    },
+    {
+        "id": 3,
+        "name": "Doc aplicación contabilizada",
+        "icon": "sap-icon://accept"
+    },
+    {
+        "id": 4,
+        "name": "IDOC eliminado",
+        "icon": "sap-icon://cancel"
+    }
+]

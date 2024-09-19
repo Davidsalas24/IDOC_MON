@@ -1,0 +1,257 @@
+<mvc:View controllerName="com.inetum.idocmonitor.controller.Detail"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:fb="sap.ui.comp.filterbar" xmlns:f="sap.f" xmlns:fo="sap.ui.layout.form" xmlns:smartTable="sap.ui.comp.smarttable"
+    xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:core="sap.ui.core" xmlns:fl="sap.ui.layout.form" xmlns:svm="sap.ui.comp.smartvariants"
+    xmlns="sap.m">
+    <f:DynamicPage >
+			<f:title>
+				<f:DynamicPageTitle>
+					
+                    <f:heading>
+                        <Title text="{i18n>visuDetaIdo}" />
+                    </f:heading>
+				</f:DynamicPageTitle>
+			</f:title>
+			
+			<f:content>
+				 <VBox>
+                    <fo:Form editable="false">
+                        <fo:layout>
+                            <fo:ColumnLayout />
+                        </fo:layout>
+                        <fo:formContainers>
+                            <fo:FormContainer>
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>numPed}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="0550432" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>docCompr}">
+                                        <fo:fields>
+                                            <Input editable="false" value="000332123" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+									<fo:FormElement label="{i18n>matClie}">
+                                        <fo:fields>
+                                            <Input editable="false" value="M767234" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                </fo:formElements>
+                            </fo:FormContainer>
+                            <fo:FormContainer>
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>indiUtili}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="{servicesModel>TipoContrato} - {servicesModel>TipoContratot}" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>suRef}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="{servicesModel>FormaAdjud} - {servicesModel>FormaAdjudt}" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                </fo:formElements>
+                            </fo:FormContainer>
+                        </fo:formContainers>
+                    </fo:Form>
+
+                    <fo:Form editable="false" class="sapUiSmallMarginTop" >
+                        <fo:layout>
+                            <fo:ColumnLayout />
+                        </fo:layout>
+                        <fo:formContainers>
+                            <fo:FormContainer >
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>solici}">
+                                        <fo:fields>
+                                            <Input editable="false" value="460003478" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>nNumSol}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="460003478" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>cenClie}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="R060" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                </fo:formElements>
+                            </fo:FormContainer>
+                            <fo:FormContainer >
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>pueDesc}">
+                                        <fo:fields>
+                                            <Input editable="false" value="R060" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>puntConsu}">
+                                        <fo:fields>
+                                            <Input editable="false" value="0010" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    
+                                </fo:formElements>
+                            </fo:FormContainer>
+                        </fo:formContainers>
+                    </fo:Form>
+
+					<fo:Form editable="false" class="sapUiSmallMarginTop" >
+                        <fo:layout>
+                            <fo:ColumnLayout />
+                        </fo:layout>
+                        <fo:formContainers>
+                            <fo:FormContainer >
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>clasOrdEntr}">
+                                        <fo:fields>
+                                            <Input editable="false" value="OES" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>fechLlamEnte}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="20240922" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>fechLlamNue}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="20240922" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+									<fo:FormElement label="{i18n>fechLlamAnt}">
+                                        <fo:fields>
+                                            <Input editable="false" value="20240922" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+									<fo:FormElement label="{i18n>numOrdEntNv}">
+                                        <fo:fields>
+                                            <Input editable="false" value="202372863" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                </fo:formElements>
+                            </fo:FormContainer>
+                            <fo:FormContainer >
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>numOrdEntAn}">
+                                        <fo:fields>
+                                            <Input editable="false" value="" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>llamValidD}">
+                                        <fo:fields>
+                                            <Input editable="false" value="20240922" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+									<fo:FormElement label="{i18n>llamValidA}">
+                                        <fo:fields>
+                                            <Input editable="false" value="20240922" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+									<fo:FormElement label="{i18n>horizLfh}">
+                                        <fo:fields>
+                                            <Input editable="false" value="" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    
+                                </fo:formElements>
+                            </fo:FormContainer>
+                        </fo:formContainers>
+                    </fo:Form>
+
+					<fo:Form editable="false" class="sapUiSmallMarginTop" >
+                        <fo:layout>
+                            <fo:ColumnLayout />
+                        </fo:layout>
+                        <fo:formContainers>
+                            <fo:FormContainer >
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>ultiNumNot}">
+                                        <fo:fields>
+                                            <Input editable="false" value="00832468723" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>fechUltiNomNo}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="{servicesModel>Zmotivo} - {servicesModel>Zdesc}" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>fechPuesCero}">
+                                        <fo:fields>
+                                            <Input editable="false"
+                                                value="{path: 'servicesModel>Faper', type: 'sap.ui.model.odata.type.Date', formatOptions: { pattern: 'dd/MM/yyyy' }}" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                </fo:formElements>
+                            </fo:FormContainer>
+                            <fo:FormContainer >
+                                <fo:formElements>
+                                    <fo:FormElement label="{i18n>ctdAcumPue}">
+                                        <fo:fields>
+                                            <Input editable="false" value="{servicesModel>Orges} - {servicesModel>Torges}" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    <fo:FormElement label="{i18n>ctdAcumRecib}">
+                                        <fo:fields>
+                                            <Input editable="false" value="415600" />
+                                        </fo:fields>
+                                    </fo:FormElement>
+                                    
+                                </fo:formElements>
+                            </fo:FormContainer>
+                        </fo:formContainers>
+                    </fo:Form>
+                     <Table  mode="None" growing="true" growingThreshold="20">
+                            <headerToolbar>
+                                <OverflowToolbar>
+                                    <!-- <ObjectIdentifier title="{i18n>enProce}  ({dataModel>/CountTablaP})" />
+                                    <ToolbarSpacer />
+                                    <ObjectIdentifier title="{i18n>accion}" />
+                                    <Button text="{i18n>valid}" type="Emphasized" press="onValid"/> -->
+                                    <ToolbarSpacer />
+                                    <!-- <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol"/>  -->
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <columns>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>clasRepar}" />
+                                </Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>tpFech}" />
+                                </Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>fechRepD}" />
+                                </Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true">
+                                    <Text text="{i18n>fechRepA}" />
+                                </Column>
+                                <Column minScreenWidth="Tablet" demandPopin="true" >
+                                    <Text text="{i18n>ctdLlam}" />
+                                </Column>
+                                
+                            </columns>
+                            <items>
+                                <ColumnListItem vAlign="Middle" >
+                                    <cells>
+                                        <Text text="021370172" />
+                                        <Text text="021370172" />
+                                        <Text text="N892634" />
+                                        <Text text="72634" />
+                                         <Text text="texto" />
+                                        
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                </VBox>
+			</f:content>
+		</f:DynamicPage>
+</mvc:View>

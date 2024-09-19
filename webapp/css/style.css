@@ -1,1 +1,8 @@
 /* Enter your custom styles here */
+.sapMITBFilter .sapMITBText {
+    text-wrap: pretty;
+}
+
+.sapMITH .sapMITBHead {
+    padding-bottom: 1%;
+}

@@ -13,7 +13,8 @@ sap.ui.define([], function() {
 			DETAIL: "RouteDetail"
 		},
 		entities: {
-			IDOC: "/IdocMonSet"
+			IDOC: "/IdocMonSet",
+			IDOCDETAIL: "/IdocDetailSet"
 		},
 		icons: {
 			

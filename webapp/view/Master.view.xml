@@ -34,25 +34,40 @@
                                 <Input ></Input>
                             </fb:control>
                         </fb:FilterGroupItem>
-                         <fb:FilterGroupItem groupName="TipoExp" visibleInFilterBar="true" name="Bstdk"
+                         <fb:FilterGroupItem groupName="TipoExp" visibleInFilterBar="true" name="Credat"
                             label="{i18n>fechRecp}">
                             <fb:control>
                               <!--   <Select id="agruIdTipoExp" change="onChangeAgru" items="{servicesModel>/TipoExpSet}"
                                     selectedKey="{dataModel>/Selecciones/TipoExp}" forceSelection="false" showSecondaryValues="true">
                                     <core:ListItem key="{servicesModel>Tipex}" text="{servicesModel>Ttipex}" additionalText="{servicesModel>Tipex}"/>
                                 </Select> -->
-                                <DateRangeSelection placeholder=" "></DateRangeSelection>
+                                <DateRangeSelection placeholder=" " dateValue="{dataModel>/DateFilt/Desde}" secondDateValue="{dataModel>/DateFilt/Hasta}"></DateRangeSelection>
                             </fb:control>
                         </fb:FilterGroupItem>
-                        <fb:FilterGroupItem groupName="Cli" visibleInFilterBar="true" name="NunInter" label="{i18n>numInterCli}">
+                        <fb:FilterGroupItem groupName="Cli" visibleInFilterBar="true" name="Sndprn" label="{i18n>numInterCli}">
                             <fb:control>
                                 <Input value="" />
                             </fb:control>
                         </fb:FilterGroupItem>
 
-                        <fb:FilterGroupItem groupName="Planta" visibleInFilterBar="true" name="Plant" label="{i18n>plant}">
+                        <fb:FilterGroupItem groupName="Planta" visibleInFilterBar="true" name="PartnLf" label="{i18n>plant}">
                             <fb:control>
                                 <Input value="" />
+                            </fb:control>
+                        </fb:FilterGroupItem>
+
+                        <fb:FilterGroupItem groupName="Estados" visibleInFilterBar="true" name="Status" label="{i18n>estados}">
+                            <fb:control>
+                               <MultiComboBox showSecondaryValues= "true" width="500px"
+                                items="{ path: 'dataModel>/Estados'}" selectedKeys="{dataModel>/EstSelected}">
+                                    <core:ListItem key="{dataModel>Key}" text="{path:'dataModel>Text'}" icon="sap-icon://cancel">
+                                        <core:customData>
+                                            <core:CustomData key="itemStoreType" value="{dataModel>Key}"
+                                                writeToDom="true" />    
+                                        </core:customData>
+                                    </core:ListItem>
+                                </MultiComboBox>    
+                               
                             </fb:control>
                         </fb:FilterGroupItem>
                         
@@ -63,8 +78,8 @@
 			<f:content>
 				 <IconTabBar expanded="{device>/isNoPhone}" select="onSelectTable" >
                 <items>
-                    <IconTabFilter icon="sap-icon://accept" count="1" iconColor="Positive" text="IDOC Procesados" key="P" tooltip="IDOC Procesados">
-                        <Table id="id-P"  mode="None" growing="true" growingThreshold="20">
+                    <IconTabFilter icon="sap-icon://accept" count="{dataModel>/IdocProCont}" iconColor="Positive" text="{i18n>idocPro}" key="P" tooltip="{i18n>idocPro}">
+                        <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPro'}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <!-- <ObjectIdentifier title="{i18n>enProce}  ({dataModel>/CountTablaP})" />
@@ -104,21 +119,21 @@
                             <items>
                                 <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
                                     <cells>
-                                        <Text text="021370172" />
-                                        <Text text="021370172" />
-                                        <Text text="N892634" />
-                                        <Text text="72634" />
-                                         <Text text="texto" />
-                                        <Text text="text" />
-                                        <Text text="prueba" />
-                                        <Link text="Prueba de texto largo. Prueba de texto largo. Prueba de texto largo." press="handlePopoverPress"/>
+                                        <Text text="{dataModel>Docnum}" />
+                                        <Text text="{dataModel>Belnr}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                         <Text text="{dataModel>Idnkd}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
                     </IconTabFilter>
-                    <IconTabFilter icon="sap-icon://message-warning" count="1" text="IDOC Pendientes" iconColor="Critical" key="T">
-                        <Table id="id-T" mode="MultiSelect" growing="true" growingThreshold="20">
+                    <IconTabFilter icon="sap-icon://message-warning" count="{dataModel>/IdocPenCont}" text="{i18n>idocPen}" iconColor="Critical" key="T">
+                        <Table mode="MultiSelect" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPen'}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <!-- <ObjectIdentifier title="{i18n>enTram} ({dataModel>/CountTablaT})" /> -->
@@ -153,23 +168,23 @@
                                 </Column>
                             </columns>
                             <items>
-                                <ColumnListItem type="Active" vAlign="Middle" press="onPress">
+                                <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
                                     <cells>
-                                       <Text text="021370172" />
-                                        <Text text="021370172" />
-                                        <Text text="N892634" />
-                                        <Text text="72634" />
-                                         <Text text="texto" />
-                                        <Text text="text" />
-                                        <Text text="prueba" />
-                                        <Link text="Prueba de texto largo." press="handlePopoverPress"/>
+                                       <Text text="{dataModel>Docnum}" />
+                                        <Text text="{dataModel>Belnr}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                         <Text text="{dataModel>Idnkd}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
                     </IconTabFilter>
-                    <IconTabFilter icon="sap-icon://status-error" count="1" iconColor="Negative" text="IDOC no contabilizado" key="C">
-                        <Table id="id-C" mode="None" growing="true" growingThreshold="20">
+                    <IconTabFilter icon="sap-icon://status-error" count="{dataModel>/IdocNoContaCont}" iconColor="Negative" text="{i18n>idocConta}" key="C">
+                        <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocNoConta'}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <!-- <ObjectIdentifier title="{i18n>comple} ({dataModel>/CountTablaC})" /> -->
@@ -203,24 +218,24 @@
                                 </Column>
                             </columns>
                             <items>
-                                <ColumnListItem type="Active" vAlign="Middle" press="onPress">
+                                <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
                                     <cells>
-                                        <Text text="021370172" />
-                                        <Text text="021370172" />
-                                        <Text text="N892634" />
-                                        <Text text="72634" />
-                                         <Text text="texto" />
-                                        <Text text="text" />
-                                        <Text text="prueba" />
-                                        <Link text="Prueba de texto largo. Prueba de texto largo. Prueba de texto largo." press="handlePopoverPress"/>
+                                         <Text text="{dataModel>Docnum}" />
+                                        <Text text="{dataModel>Belnr}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                         <Text text="{dataModel>Idnkd}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>
                         </Table>
                     </IconTabFilter>
 
-                     <IconTabFilter icon="sap-icon://cancel" count="1" text="IDOC anulados" key="C">
-                        <Table id="id-D" mode="None" growing="true" growingThreshold="20">
+                     <IconTabFilter icon="sap-icon://cancel" count="{dataModel>/IdocAnCont}" text="{i18n>idocAn}" key="C">
+                        <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocAn'}">
                             <headerToolbar>
                                 <OverflowToolbar>
                                     <!-- <ObjectIdentifier title="{i18n>comple} ({dataModel>/CountTablaC})" /> -->
@@ -254,16 +269,16 @@
                                 </Column>
                             </columns>
                             <items>
-                                <ColumnListItem type="Active" vAlign="Middle" press="onPress">
+                                <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
                                     <cells>
-                                       <Text text="021370172" />
-                                        <Text text="021370172" />
-                                        <Text text="N892634" />
-                                        <Text text="72634" />
-                                         <Text text="texto" />
-                                        <Text text="text" />
-                                        <Text text="prueba" />
-                                        <Link text="Prueba de texto largo. Prueba de texto largo. Prueba de texto largo." press="handlePopoverPress"/>
+                                        <Text text="{dataModel>Docnum}" />
+                                        <Text text="{dataModel>Belnr}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                         <Text text="{dataModel>Idnkd}" />
+                                        <Text text="{}" />
+                                        <Text text="{}" />
+                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
                                     </cells>
                                 </ColumnListItem>
                             </items>

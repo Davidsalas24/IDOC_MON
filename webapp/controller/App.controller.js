@@ -102,11 +102,22 @@ sap.ui.define(
           }
 
           if (oControl instanceof sap.m.MultiComboBox) {
-            let sValue = oControl.getSelectedKeys();
-            // if (sValue.length > 1) {
-            // 	sValue.shift();
-            // }
-            oKeys[oFilterItem.getProperty("name")] = sValue.join("-") || "";
+            let aValue = oControl.getSelectedKeys();
+            let oFilt = FilterOperator.EQ;
+            
+            let aFilArr = [];
+
+             if (aValue.length > 0) {
+                for(let sValueIn of aValue){
+                  aFilArr.push(new Filter(oFilterItem.getProperty("name"), oFilt, sValueIn));
+                }
+                let aFilter = new Filter({
+                  filters: aFilArr,
+                  and: false
+                });
+                oKeys.push(aFilter);
+             }
+            
             continue;
           }
 
@@ -119,9 +130,10 @@ sap.ui.define(
             oKeys["IvFechaFin"] = oTo;
             oKeys["IvFechaInicio"] = oFrom; */
             //oKeys[oFilterItem.getProperty("name")] = oControl.getValue() || "";
-             
-             let oFilt = FilterOperator.BT;
-            oKeys.push(new Filter(oFilterItem.getProperty("name"), oFilt, oFrom, oTo || ""));
+             if(oFrom){
+              let oFilt = FilterOperator.BT;
+              oKeys.push(new Filter(oFilterItem.getProperty("name"), oFilt, oFrom, oTo || ""));
+             }
           
             continue;
           }

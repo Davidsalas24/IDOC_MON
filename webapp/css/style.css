@@ -6,3 +6,16 @@
 .sapMITH .sapMITBHead {
     padding-bottom: 1%;
 }
+
+[data-itemStoreType='51'] * {
+	color:#30914c!important;
+}
+[data-itemStoreType='64'] *{
+	color:#e76500!important;
+}
+[data-itemStoreType='53'] *{
+	color:#f53232!important;
+}   
+[data-itemStoreType='20'] *{
+	color:#0070f2!important;
+}

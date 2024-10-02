@@ -94,26 +94,28 @@ sap.ui.define([
                 
                 let oDataRes;
 
-                sap.ui.core.BusyIndicator.show();
-                Services.getReadData.call(this, sPath, oKeys)
-                    .then((oData) => {
-                        sap.ui.core.BusyIndicator.hide();
-                        oDataRes = oData.results
+                if(oKeys.length > 0){
+                    sap.ui.core.BusyIndicator.show();
+                    Services.getReadData.call(this, sPath, oKeys)
+                        .then((oData) => {
+                            sap.ui.core.BusyIndicator.hide();
+                            oDataRes = oData.results
 
-                        this.onFiltDataTable(oDataRes);
-                    })
-                    //TODO MEnsaje Error
-                    .catch((oError) => {
-                        //oTable.setBusy(false);
-                        sap.ui.core.BusyIndicator.hide();
-                        console.log(oError);
-                        if(oError.responseText.search("SQL_CAUGHT_RABAX") >= 0){
-                            MessageBox.information(this.getView().getModel("i18n").getProperty("mgsNoData"));
-                            this.onResetTables();
-                        }else{
-                            MessageBox.error(this.getView().getModel("i18n").getProperty("mgsError"));
-                        }
-                    });
+                            this.onFiltDataTable(oDataRes);
+                        })
+                        //TODO MEnsaje Error
+                        .catch((oError) => {
+                            //oTable.setBusy(false);
+                            sap.ui.core.BusyIndicator.hide();
+                            console.log(oError);
+                            if(oError.responseText.search("SQL_CAUGHT_RABAX") >= 0){
+                                MessageBox.information(this.getView().getModel("i18n").getProperty("mgsNoData"));
+                                this.onResetTables();
+                            }else{
+                                MessageBox.error(this.getView().getModel("i18n").getProperty("mgsError"));
+                            }
+                        });
+                }
             },
             
             /**

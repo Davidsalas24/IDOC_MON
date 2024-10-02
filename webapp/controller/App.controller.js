@@ -131,8 +131,13 @@ sap.ui.define(
             oKeys["IvFechaInicio"] = oFrom; */
             //oKeys[oFilterItem.getProperty("name")] = oControl.getValue() || "";
              if(oFrom){
+              oControl.setValueState("None")
               let oFilt = FilterOperator.BT;
               oKeys.push(new Filter(oFilterItem.getProperty("name"), oFilt, oFrom, oTo || ""));
+             }else{
+              oControl.setValueState("Error")
+              oKeys.length = 0;
+              break;
              }
           
             continue;

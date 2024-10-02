@@ -1,7 +1,7 @@
 <mvc:View controllerName="com.inetum.idocmonitor.controller.Master"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns:fb="sap.ui.comp.filterbar" xmlns:f="sap.f" xmlns:smartTable="sap.ui.comp.smarttable"
     xmlns:smartFilterBar="sap.ui.comp.smartfilterbar" xmlns:core="sap.ui.core" xmlns:fl="sap.ui.layout.form" xmlns:svm="sap.ui.comp.smartvariants"
-    xmlns="sap.m">
+    xmlns="sap.m" xmlns:ui="sap.ui.table">
     <f:DynamicPage >
 			<f:title>
 				<f:DynamicPageTitle>
@@ -35,7 +35,7 @@
                             </fb:control>
                         </fb:FilterGroupItem>
                          <fb:FilterGroupItem groupName="TipoExp" visibleInFilterBar="true" name="Credat"
-                            label="{i18n>fechRecp}">
+                            label="{i18n>fechRecp}" mandatory="true">
                             <fb:control>
                               <!--   <Select id="agruIdTipoExp" change="onChangeAgru" items="{servicesModel>/TipoExpSet}"
                                     selectedKey="{dataModel>/Selecciones/TipoExp}" forceSelection="false" showSecondaryValues="true">
@@ -79,15 +79,69 @@
 				 <IconTabBar expanded="{device>/isNoPhone}" select="onSelectTable" >
                 <items>
                     <IconTabFilter icon="sap-icon://accept" count="{dataModel>/IdocProCont}" iconColor="Positive" text="{i18n>idocPro}" key="P" tooltip="{i18n>idocPro}">
-                        <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPro'}">
+                    	<ui:Table 	 selectionMode="None" rows="{path: 'dataModel>/IdocPro'}"
+				                enableCellFilter="{ui>/cellFilterOn}" filter="filterPrice"	ariaLabelledBy="title">
+                                <ui:extension>
+                            <OverflowToolbar style="Clear">
+                                
+                            </OverflowToolbar>
+                        </ui:extension>
+                        <ui:columns>
+                            <ui:Column filterProperty="Docnum">
+                                <Label text="{i18n>idocNum}" />
+                                <ui:template>
+                                    <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Belnr">
+                                <Label text="{i18n>docVent}" />
+                                <ui:template>
+                                    <Text text="{dataModel>Belnr}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>numInterCli}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>numPdClie}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Idnkd">
+                                <Label text="{i18n>matClie}" />
+                                <ui:template>
+                                    <Text text="{dataModel>Idnkd}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>plant}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>puntDesc}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Messtxt">
+                                <Label text="{i18n>status}" />
+                                <ui:template>
+                                    <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
+                                </ui:template>
+                            </ui:Column>
+                        </ui:columns>
+                        
+                    </ui:Table>
+                       <!--  <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPro'}">
                             <headerToolbar>
                                 <OverflowToolbar>
-                                    <!-- <ObjectIdentifier title="{i18n>enProce}  ({dataModel>/CountTablaP})" />
-                                    <ToolbarSpacer />
-                                    <ObjectIdentifier title="{i18n>accion}" />
-                                    <Button text="{i18n>valid}" type="Emphasized" press="onValid"/> -->
-                                    <ToolbarSpacer />
-                                    <!-- <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol"/>  -->
+                                                                    
                                 </OverflowToolbar>
                             </headerToolbar>
                             <columns>
@@ -130,13 +184,12 @@
                                     </cells>
                                 </ColumnListItem>
                             </items>
-                        </Table>
+                        </Table> -->
                     </IconTabFilter>
                     <IconTabFilter icon="sap-icon://message-warning" count="{dataModel>/IdocPenCont}" text="{i18n>idocPen}" iconColor="Critical" key="T">
-                        <Table mode="MultiSelect" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPen'}">
+                        <!-- <Table mode="MultiSelect" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPen'}">
                             <headerToolbar>
                                 <OverflowToolbar>
-                                    <!-- <ObjectIdentifier title="{i18n>enTram} ({dataModel>/CountTablaT})" /> -->
                                     <ToolbarSpacer />
                                     <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol" tooltip="Procesar"/> 
                                 </OverflowToolbar>
@@ -181,13 +234,131 @@
                                     </cells>
                                 </ColumnListItem>
                             </items>
-                        </Table>
+                        </Table> -->
+                        <ui:Table selectionMode="MultiToggle" rows="{path: 'dataModel>/IdocPen'}"
+				                enableCellFilter="{ui>/cellFilterOn}" filter="filterPrice"	ariaLabelledBy="title">
+                                <ui:extension>
+                            <OverflowToolbar style="Clear">
+                                <ToolbarSpacer />
+                                    <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol" tooltip="Procesar"/>
+                            </OverflowToolbar>
+                        </ui:extension>
+                        <ui:columns>
+                            <ui:Column filterProperty="Docnum">
+                                <Label text="{i18n>idocNum}" />
+                                <ui:template>
+                                    <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Belnr">
+                                <Label text="{i18n>docVent}" />
+                                <ui:template>
+                                    <Text text="{dataModel>Belnr}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>numInterCli}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>numPdClie}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Idnkd">
+                                <Label text="{i18n>matClie}" />
+                                <ui:template>
+                                    <Text text="{dataModel>Idnkd}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>plant}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>puntDesc}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Messtxt">
+                                <Label text="{i18n>status}" />
+                                <ui:template>
+                                    <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
+                                </ui:template>
+                            </ui:Column>
+                        </ui:columns>
+                    </ui:Table>
                     </IconTabFilter>
                     <IconTabFilter icon="sap-icon://status-error" count="{dataModel>/IdocNoContaCont}" iconColor="Negative" text="{i18n>idocConta}" key="C">
-                        <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocNoConta'}">
+                        <ui:Table selectionMode="MultiToggle" rows="{path: 'dataModel>/IdocNoConta'}"
+                                    enableCellFilter="{ui>/cellFilterOn}" filter="filterPrice"	ariaLabelledBy="title">
+                                    <ui:extension>
+                                <OverflowToolbar style="Clear">
+                                    <ToolbarSpacer />
+                                        <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol" tooltip="Procesar"/>
+                                </OverflowToolbar>
+                            </ui:extension>
+                            <ui:columns>
+                                <ui:Column filterProperty="Docnum">
+                                    <Label text="{i18n>idocNum}" />
+                                    <ui:template>
+                                        <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column filterProperty="Belnr">
+                                    <Label text="{i18n>docVent}" />
+                                    <ui:template>
+                                        <Text text="{dataModel>Belnr}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column filterProperty="">
+                                    <Label text="{i18n>numInterCli}" />
+                                    <ui:template>
+                                        <Text text="{}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column filterProperty="">
+                                    <Label text="{i18n>numPdClie}" />
+                                    <ui:template>
+                                        <Text text="{}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column filterProperty="Idnkd">
+                                    <Label text="{i18n>matClie}" />
+                                    <ui:template>
+                                        <Text text="{dataModel>Idnkd}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column filterProperty="">
+                                    <Label text="{i18n>plant}" />
+                                    <ui:template>
+                                        <Text text="{}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column filterProperty="">
+                                    <Label text="{i18n>puntDesc}" />
+                                    <ui:template>
+                                        <Text text="{}" />
+                                    </ui:template>
+                                </ui:Column>
+                                <ui:Column filterProperty="Messtxt">
+                                    <Label text="{i18n>status}" />
+                                    <ui:template>
+                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
+                                    </ui:template>
+                                </ui:Column>
+                            </ui:columns>
+                        </ui:Table>
+                       <!--  <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocNoConta'}">
                             <headerToolbar>
                                 <OverflowToolbar>
-                                    <!-- <ObjectIdentifier title="{i18n>comple} ({dataModel>/CountTablaC})" /> -->
+                                    
                                     <ToolbarSpacer />
                                 </OverflowToolbar>
                             </headerToolbar>
@@ -231,14 +402,74 @@
                                     </cells>
                                 </ColumnListItem>
                             </items>
-                        </Table>
+                        </Table> -->
                     </IconTabFilter>
 
                      <IconTabFilter icon="sap-icon://cancel" count="{dataModel>/IdocAnCont}" text="{i18n>idocAn}" key="C">
-                        <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocAn'}">
+                            <ui:Table selectionMode="MultiToggle" rows="{path: 'dataModel>/IdocAn'}"
+				                enableCellFilter="{ui>/cellFilterOn}" filter="filterPrice"	ariaLabelledBy="title">
+                                <ui:extension>
+                            <OverflowToolbar style="Clear">
+                                <ToolbarSpacer />
+                                    <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol" tooltip="Procesar"/>
+                            </OverflowToolbar>
+                        </ui:extension>
+                        <ui:columns>
+                            <ui:Column filterProperty="Docnum">
+                                <Label text="{i18n>idocNum}" />
+                                <ui:template>
+                                    <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Belnr">
+                                <Label text="{i18n>docVent}" />
+                                <ui:template>
+                                    <Text text="{dataModel>Belnr}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>numInterCli}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>numPdClie}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Idnkd">
+                                <Label text="{i18n>matClie}" />
+                                <ui:template>
+                                    <Text text="{dataModel>Idnkd}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>plant}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="">
+                                <Label text="{i18n>puntDesc}" />
+                                <ui:template>
+                                    <Text text="{}" />
+                                </ui:template>
+                            </ui:Column>
+                            <ui:Column filterProperty="Messtxt">
+                                <Label text="{i18n>status}" />
+                                <ui:template>
+                                    <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
+                                </ui:template>
+                            </ui:Column>
+                        </ui:columns>
+                    </ui:Table>
+
+                       <!--  <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocAn'}">
                             <headerToolbar>
                                 <OverflowToolbar>
-                                    <!-- <ObjectIdentifier title="{i18n>comple} ({dataModel>/CountTablaC})" /> -->
+                                    
                                     <ToolbarSpacer />
                                 </OverflowToolbar>
                             </headerToolbar>
@@ -282,7 +513,7 @@
                                     </cells>
                                 </ColumnListItem>
                             </items>
-                        </Table>
+                        </Table> -->
                     </IconTabFilter>
 
                 </items>

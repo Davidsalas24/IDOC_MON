@@ -5,15 +5,6 @@
     <f:DynamicPage >
 			<f:title>
 				<f:DynamicPageTitle>
-					<!-- <f:heading>
-						<svm:SmartVariantManagement id="svm" showExecuteOnSelection="true" />
-					</f:heading> -->
-					<!-- <f:expandedContent>
-						<Label id="expandedLabel" text="No filters active" />
-					</f:expandedContent>
-					<f:snappedContent>
-						<Label id="snappedLabel" text="No filters active" />
-					</f:snappedContent> -->
                     <f:heading>
                         <Title text="{i18n>title}" />
                     </f:heading>
@@ -27,20 +18,12 @@
                         <fb:FilterGroupItem groupName="Organo" visibleInFilterBar="true" name="Docnum"
                             label="{i18n>idocNum}">
                             <fb:control>
-                                <!-- <Select id="agruIdOrgGob" change="onChangeAgru" items="{ path: 'servicesModel>/OrganGestSet', length: 250}"
-                                    selectedKey="{dataModel>/Selecciones/OrgnGob}" forceSelection="false" showSecondaryValues="true" >
-                                    <core:ListItem text="{servicesModel>Orges}" key="{servicesModel>Torges}" additionalText="{servicesModel>Torges}"/>
-                                </Select> -->
                                 <Input ></Input>
                             </fb:control>
                         </fb:FilterGroupItem>
                          <fb:FilterGroupItem groupName="TipoExp" visibleInFilterBar="true" name="Credat"
                             label="{i18n>fechRecp}" mandatory="true">
                             <fb:control>
-                              <!--   <Select id="agruIdTipoExp" change="onChangeAgru" items="{servicesModel>/TipoExpSet}"
-                                    selectedKey="{dataModel>/Selecciones/TipoExp}" forceSelection="false" showSecondaryValues="true">
-                                    <core:ListItem key="{servicesModel>Tipex}" text="{servicesModel>Ttipex}" additionalText="{servicesModel>Tipex}"/>
-                                </Select> -->
                                 <DateRangeSelection placeholder=" " dateValue="{dataModel>/DateFilt/Desde}" secondDateValue="{dataModel>/DateFilt/Hasta}"></DateRangeSelection>
                             </fb:control>
                         </fb:FilterGroupItem>
@@ -136,111 +119,16 @@
                                 </ui:template>
                             </ui:Column>
                         </ui:columns>
-                        
                     </ui:Table>
-                       <!--  <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPro'}">
-                            <headerToolbar>
-                                <OverflowToolbar>
-                                                                    
-                                </OverflowToolbar>
-                            </headerToolbar>
-                            <columns>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>idocNum}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>docVent}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numInterCli}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numPdClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" >
-                                    <Text text="{i18n>matClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>plant}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>puntDesc}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" >
-                                    <Text text="{i18n>status}" />
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
-                                    <cells>
-                                        <Text text="{dataModel>Docnum}" />
-                                        <Text text="{dataModel>Belnr}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                         <Text text="{dataModel>Idnkd}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table> -->
                     </IconTabFilter>
                     <IconTabFilter icon="sap-icon://message-warning" count="{dataModel>/IdocPenCont}" text="{i18n>idocPen}" iconColor="Critical" key="T">
-                        <!-- <Table mode="MultiSelect" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocPen'}">
-                            <headerToolbar>
-                                <OverflowToolbar>
-                                    <ToolbarSpacer />
-                                    <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol" tooltip="Procesar"/> 
-                                </OverflowToolbar>
-                            </headerToolbar>
-                            <columns>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>idocNum}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>docVent}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numInterCli}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numPdClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>matClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>plant}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>puntDesc}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>status}" />
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
-                                    <cells>
-                                       <Text text="{dataModel>Docnum}" />
-                                        <Text text="{dataModel>Belnr}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                         <Text text="{dataModel>Idnkd}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table> -->
                         <ui:Table selectionMode="MultiToggle" rows="{path: 'dataModel>/IdocPen'}"
 				                enableCellFilter="{ui>/cellFilterOn}" filter="filterPrice"	ariaLabelledBy="title">
                                 <ui:extension>
                             <OverflowToolbar style="Clear">
                                 <ToolbarSpacer />
-                                    <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol" tooltip="Procesar"/>
+                                    <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onIntegrar" tooltip="{i18n>Inte}"/>
+                                    <Button icon="sap-icon://delete" type="Emphasized" press="onEliminar" tooltip="{i18n>Borr}"/>
                             </OverflowToolbar>
                         </ui:extension>
                         <ui:columns>
@@ -301,7 +189,7 @@
                                     <ui:extension>
                                 <OverflowToolbar style="Clear">
                                     <ToolbarSpacer />
-                                        <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onDevol" tooltip="Procesar"/>
+                                        <Button icon="sap-icon://delete" type="Emphasized" press="onEliminar" tooltip="{i18n>Borr}"/>
                                 </OverflowToolbar>
                             </ui:extension>
                             <ui:columns>
@@ -355,56 +243,7 @@
                                 </ui:Column>
                             </ui:columns>
                         </ui:Table>
-                       <!--  <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocNoConta'}">
-                            <headerToolbar>
-                                <OverflowToolbar>
-                                    
-                                    <ToolbarSpacer />
-                                </OverflowToolbar>
-                            </headerToolbar>
-                            <columns>
-                               <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>idocNum}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>docVent}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numInterCli}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numPdClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>matClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>plant}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>puntDesc}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>status}" />
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
-                                    <cells>
-                                         <Text text="{dataModel>Docnum}" />
-                                        <Text text="{dataModel>Belnr}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                         <Text text="{dataModel>Idnkd}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table> -->
                     </IconTabFilter>
-
                      <IconTabFilter icon="sap-icon://cancel" count="{dataModel>/IdocAnCont}" text="{i18n>idocAn}" key="C">
                             <ui:Table selectionMode="MultiToggle" rows="{path: 'dataModel>/IdocAn'}"
 				                enableCellFilter="{ui>/cellFilterOn}" filter="filterPrice"	ariaLabelledBy="title">
@@ -465,55 +304,6 @@
                             </ui:Column>
                         </ui:columns>
                     </ui:Table>
-
-                       <!--  <Table mode="None" growing="true" growingThreshold="20" items="{path: 'dataModel>/IdocAn'}">
-                            <headerToolbar>
-                                <OverflowToolbar>
-                                    
-                                    <ToolbarSpacer />
-                                </OverflowToolbar>
-                            </headerToolbar>
-                            <columns>
-                               <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>idocNum}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>docVent}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numInterCli}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>numPdClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>matClie}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true">
-                                    <Text text="{i18n>plant}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>puntDesc}" />
-                                </Column>
-                                <Column minScreenWidth="Tablet" demandPopin="true" width="15%">
-                                    <Text text="{i18n>status}" />
-                                </Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem type="Active" vAlign="Middle" press="onDetailPress">
-                                    <cells>
-                                        <Text text="{dataModel>Docnum}" />
-                                        <Text text="{dataModel>Belnr}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                         <Text text="{dataModel>Idnkd}" />
-                                        <Text text="{}" />
-                                        <Text text="{}" />
-                                        <Link text="{dataModel>Messtxt}" press="handlePopoverPress"/>
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table> -->
                     </IconTabFilter>
 
                 </items>

@@ -31,7 +31,7 @@ sap.ui.define(["com/inetum/idocmonitor/utils/Constants"], function(e) {
 					},
 					{
 						Text: e.getText("idocAn"),
-						Key: '20',
+						Key: '68',
 						select: false
 					}
 				],

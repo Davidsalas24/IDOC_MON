@@ -23,6 +23,19 @@
           "localUri": "localService/metadata.xml"
         }
       }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "IdocMonSem-Display": {
+          "semanticObject": "IdocMonSem",
+          "action": "Display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
     }
   },
   "sap.ui": {
@@ -43,7 +56,6 @@
     }
   },
   "sap.ui5": {
-    
     "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.102.2",
@@ -73,10 +85,10 @@
         "type": "sap.ui.model.json.JSONModel"
       },
       "servicesStatus": {
-          "type": "sap.ui.model.json.JSONModel",
-          "settings": {},
-          "uri": "model/status.json",
-          "preload": false
+        "type": "sap.ui.model.json.JSONModel",
+        "settings": {},
+        "uri": "model/status.json",
+        "preload": false
       },
       "": {
         "type": "sap.ui.model.odata.v2.ODataModel",
@@ -146,5 +158,9 @@
       "async": true,
       "id": "App"
     }
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "cominetumidocmonitor"
   }
 }

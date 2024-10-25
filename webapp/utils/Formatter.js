@@ -10,10 +10,17 @@ sap.ui.define(["com/inetum/idocmonitor/utils/Constants", "com/inetum/idocmonitor
 				sIcon = "sap-icon://message-warning"
 			}else if(sKey === "53"){
 				sIcon = "sap-icon://status-error"
-			}else if(sKey === "20"){
+			}else if(sKey === "68"){
 				sIcon = "sap-icon://cancel"
 			}
 			return sIcon;
+		},
+
+		quitarCeros: function(sData){
+			if(sData){
+				return sData.replace(/^0+/, '');
+			}
+			
 		}
 	}
 }, true);

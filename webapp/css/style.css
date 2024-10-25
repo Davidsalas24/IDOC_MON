@@ -7,15 +7,18 @@
     padding-bottom: 1%;
 }
 
-[data-itemStoreType='51'] * {
+[data-itemStoreType='53'] * {
 	color:#30914c!important;
 }
 [data-itemStoreType='64'] *{
 	color:#e76500!important;
 }
-[data-itemStoreType='53'] *{
+[data-itemStoreType='51'] *{
 	color:#f53232!important;
 }   
 [data-itemStoreType='68'] *{
 	color:#0070f2!important;
+}
+.sapUiFormCLWideColumns .sapUiFormCLElement>.sapUiFormCLCellsL4 {
+    width: auto;
 }

@@ -12,11 +12,20 @@ sap.ui.define(["com/inetum/idocmonitor/utils/Constants"], function(e) {
 				IdocPenCont: 0,
 				IdocNoContaCont: 0,
 				IdocAnCont:0,
+				DataFilt:{
+					Docnum: "",
+					Sndprn: "",
+					PartnLf: "",
+					DateFilt:{
+						Desde: new Date(),
+						Hasta: new Date()
+					}
+				},
 				EstSelected: ["51","64"],
 				Estados:[
 					{
 						Text: e.getText("idocPro"),
-						Key: '51',
+						Key: '53',
 						select: true
 					},
 					{
@@ -25,8 +34,8 @@ sap.ui.define(["com/inetum/idocmonitor/utils/Constants"], function(e) {
 						select: true
 					},
 					{
-						Text: e.getText("idocConta"),
-						Key: '53',
+						Text: e.getText("idocNoConta"),
+						Key: '51',
 						select: false
 					},
 					{
@@ -35,11 +44,7 @@ sap.ui.define(["com/inetum/idocmonitor/utils/Constants"], function(e) {
 						select: false
 					}
 				],
-				DataDetailTable: [],
-				DateFilt:{
-					Desde: new Date(),
-					Hasta: new Date()
-				}
+				DataDetailTable: []
 			}
 		}
 	}

@@ -18,24 +18,24 @@
                         <fb:FilterGroupItem groupName="Organo" visibleInFilterBar="true" name="Docnum"
                             label="{i18n>idocNum}">
                             <fb:control>
-                                <Input ></Input>
+                                <Input value="{dataModel>/DataFilt/Docnum}"></Input>
                             </fb:control>
                         </fb:FilterGroupItem>
                          <fb:FilterGroupItem groupName="TipoExp" visibleInFilterBar="true" name="Credat"
                             label="{i18n>fechRecp}" mandatory="true">
                             <fb:control>
-                                <DateRangeSelection placeholder=" " dateValue="{dataModel>/DateFilt/Desde}" secondDateValue="{dataModel>/DateFilt/Hasta}"></DateRangeSelection>
+                                <DateRangeSelection placeholder=" " dateValue="{dataModel>/DataFilt/DateFilt/Desde}" secondDateValue="{dataModel>/DataFilt/DateFilt/Hasta}"></DateRangeSelection>
                             </fb:control>
                         </fb:FilterGroupItem>
                         <fb:FilterGroupItem groupName="Cli" visibleInFilterBar="true" name="Sndprn" label="{i18n>numInterCli}">
                             <fb:control>
-                                <Input value="" />
+                                <Input value="{dataModel>/DataFilt/Sndprn}" />
                             </fb:control>
                         </fb:FilterGroupItem>
 
                         <fb:FilterGroupItem groupName="Planta" visibleInFilterBar="true" name="PartnLf" label="{i18n>plant}">
                             <fb:control>
-                                <Input value="" />
+                                <Input value="{dataModel>/DataFilt/PartnLf}" />
                             </fb:control>
                         </fb:FilterGroupItem>
 
@@ -73,25 +73,25 @@
                             <ui:Column filterProperty="Docnum">
                                 <Label text="{i18n>idocNum}" />
                                 <ui:template>
-                                    <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                    <Link text="{path: 'dataModel>Docnum', formatter:'.Formatter.quitarCeros'}" press="onDetailPress"/>
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="Belnr">
+                            <ui:Column filterProperty="Vbeln">
                                 <Label text="{i18n>docVent}" />
                                 <ui:template>
-                                    <Text text="{dataModel>Belnr}" />
+                                    <Link text="{dataModel>Vbeln}" press="onDetailTrans"/>
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Sndprn">
                                 <Label text="{i18n>numInterCli}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>Sndprn}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Vtrnr">
                                 <Label text="{i18n>numPdClie}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>Vtrnr}" />
                                 </ui:template>
                             </ui:Column>
                             <ui:Column filterProperty="Idnkd">
@@ -100,16 +100,16 @@
                                     <Text text="{dataModel>Idnkd}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="PartnLf">
                                 <Label text="{i18n>plant}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>PartnLf}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Dfabl">
                                 <Label text="{i18n>puntDesc}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>Dfabl}" />
                                 </ui:template>
                             </ui:Column>
                             <ui:Column filterProperty="Messtxt">
@@ -127,30 +127,30 @@
                                 <ui:extension>
                             <OverflowToolbar style="Clear">
                                 <ToolbarSpacer />
-                                    <Button icon="sap-icon://accounting-document-verification" type="Emphasized" press="onIntegrar" tooltip="{i18n>Inte}"/>
-                                    <Button icon="sap-icon://delete" type="Emphasized" press="onEliminar" tooltip="{i18n>Borr}"/>
+                                    <Button icon="sap-icon://accounting-document-verification" text="{i18n>Inte}" type="Emphasized" press="onIntegrar" tooltip="{i18n>Inte}"/>
+                                    <Button icon="sap-icon://delete" type="Emphasized" press="onEliminar" text="{i18n>borr}" tooltip="{i18n>borr}"/>
                             </OverflowToolbar>
                         </ui:extension>
                         <ui:columns>
                             <ui:Column filterProperty="Docnum">
                                 <Label text="{i18n>idocNum}" />
                                 <ui:template>
-                                    <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                    <Link text="{path:'dataModel>Docnum', formatter:'.Formatter.quitarCeros'}" press="onDetailPress"/>
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="Belnr">
+                            <ui:Column filterProperty="Stdmes">
                                 <Label text="{i18n>docVent}" />
                                 <ui:template>
-                                    <Text text="{dataModel>Belnr}" />
+                                    <Text text="{dataModel>Stdmes}"/>
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Sndprn">
                                 <Label text="{i18n>numInterCli}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>Sndprn}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Vtrnr">
                                 <Label text="{i18n>numPdClie}" />
                                 <ui:template>
                                     <Text text="{dataModel>Vtrnr}" />
@@ -162,16 +162,16 @@
                                     <Text text="{dataModel>Idnkd}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="PartnLf">
                                 <Label text="{i18n>plant}" />
                                 <ui:template>
                                     <Text text="{dataModel>PartnLf}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Dfabl">
                                 <Label text="{i18n>puntDesc}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>Dfabl}" />
                                 </ui:template>
                             </ui:Column>
                             <ui:Column filterProperty="Messtxt">
@@ -183,35 +183,37 @@
                         </ui:columns>
                     </ui:Table>
                     </IconTabFilter>
-                    <IconTabFilter icon="sap-icon://status-error" count="{dataModel>/IdocNoContaCont}" iconColor="Negative" text="{i18n>idocConta}" key="C">
+                    <IconTabFilter icon="sap-icon://status-error" count="{dataModel>/IdocNoContaCont}" iconColor="Negative" text="{i18n>idocNoConta}" key="C">
                         <ui:Table selectionMode="MultiToggle" rows="{path: 'dataModel>/IdocNoConta'}"
                                     enableCellFilter="{ui>/cellFilterOn}" filter="filterPrice"	ariaLabelledBy="title">
                                     <ui:extension>
                                 <OverflowToolbar style="Clear">
                                     <ToolbarSpacer />
-                                        <Button icon="sap-icon://delete" type="Emphasized" press="onEliminar" tooltip="{i18n>Borr}"/>
+                                        <Button icon="sap-icon://accounting-document-verification" text="{i18n>Inte}" type="Emphasized" press="onIntegrar" tooltip="{i18n>Inte}"/>
+                                        <!-- <Button icon="sap-icon://bullet-text" type="Emphasized" press="onAbrirCompCantidades" text="{i18n>edit}" tooltip="{i18n>edit}"/> -->
+                                        <Button icon="sap-icon://delete" type="Emphasized" press="onEliminar" text="{i18n>borr}" tooltip="{i18n>borr}"/>
                                 </OverflowToolbar>
                             </ui:extension>
                             <ui:columns>
                                 <ui:Column filterProperty="Docnum">
                                     <Label text="{i18n>idocNum}" />
                                     <ui:template>
-                                        <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                        <Link text="{path:'dataModel>Docnum', formatter:'.Formatter.quitarCeros'}" press="onDetailPress"/>
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column filterProperty="Belnr">
+                                <ui:Column filterProperty="Stdmes">
                                     <Label text="{i18n>docVent}" />
                                     <ui:template>
-                                        <Text text="{dataModel>Belnr}" />
+                                        <Text text="{dataModel>Stdmes}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column filterProperty="">
+                                <ui:Column filterProperty="Sndprn">
                                     <Label text="{i18n>numInterCli}" />
                                     <ui:template>
-                                        <Text text="{}" />
+                                        <Text text="{dataModel>Sndprn}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column filterProperty="">
+                                <ui:Column filterProperty="Vtrnr">
                                     <Label text="{i18n>numPdClie}" />
                                     <ui:template>
                                         <Text text="{dataModel>Vtrnr}" />
@@ -223,16 +225,16 @@
                                         <Text text="{dataModel>Idnkd}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column filterProperty="">
+                                <ui:Column filterProperty="PartnLf">
                                     <Label text="{i18n>plant}" />
                                     <ui:template>
                                         <Text text="{dataModel>PartnLf}" />
                                     </ui:template>
                                 </ui:Column>
-                                <ui:Column filterProperty="">
+                                <ui:Column filterProperty="Dfabl">
                                     <Label text="{i18n>puntDesc}" />
                                     <ui:template>
-                                        <Text text="{}" />
+                                        <Text text="{dataModel>Dfabl}" />
                                     </ui:template>
                                 </ui:Column>
                                 <ui:Column filterProperty="Messtxt">
@@ -257,19 +259,19 @@
                             <ui:Column filterProperty="Docnum">
                                 <Label text="{i18n>idocNum}" />
                                 <ui:template>
-                                    <Link text="{dataModel>Docnum}" press="onDetailPress"/>
+                                    <Link text="{path:'dataModel>Docnum', formatter:'.Formatter.quitarCeros'}" press="onDetailPress"/>
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="Belnr">
+                            <ui:Column filterProperty="Stdmes">
                                 <Label text="{i18n>docVent}" />
                                 <ui:template>
-                                    <Text text="{dataModel>Belnr}" />
+                                    <Text text="{dataModel>Stdmes}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Sndprn">
                                 <Label text="{i18n>numInterCli}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>Sndprn}" />
                                 </ui:template>
                             </ui:Column>
                             <ui:Column filterProperty="">
@@ -290,10 +292,10 @@
                                     <Text text="{dataModel>PartnLf}" />
                                 </ui:template>
                             </ui:Column>
-                            <ui:Column filterProperty="">
+                            <ui:Column filterProperty="Dfabl">
                                 <Label text="{i18n>puntDesc}" />
                                 <ui:template>
-                                    <Text text="{}" />
+                                    <Text text="{dataModel>Dfabl}" />
                                 </ui:template>
                             </ui:Column>
                             <ui:Column filterProperty="Messtxt">

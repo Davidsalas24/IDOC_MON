@@ -1,12 +1,12 @@
 sap.ui.define([
     "com/inetum/idocmonitor/controller/App.controller",
     'sap/m/MessageToast',
-	'sap/ui/core/Fragment',
+    'sap/ui/core/Fragment',
     'sap/ui/model/json/JSONModel',
     "sap/m/Dialog",
-	"sap/m/Button",
-	"sap/m/library",
-	"sap/m/Text",
+    "sap/m/Button",
+    "sap/m/library",
+    "sap/m/Text",
     "sap/ui/core/library",
     "com/inetum/idocmonitor/utils/Constants",
     "com/inetum/idocmonitor/utils/DataManager",
@@ -23,17 +23,90 @@ sap.ui.define([
         "use strict";
 
         // shortcut for sap.m.ButtonType
-	var ButtonType = mobileLibrary.ButtonType;
+        var ButtonType = mobileLibrary.ButtonType;
 
-	// shortcut for sap.m.DialogType
-	var DialogType = mobileLibrary.DialogType;
+        // shortcut for sap.m.DialogType
+        var DialogType = mobileLibrary.DialogType;
 
-	// shortcut for sap.ui.core.ValueState
-	var ValueState = coreLibrary.ValueState;
+        // shortcut for sap.ui.core.ValueState
+        var ValueState = coreLibrary.ValueState;
 
         return appController.extend("com.inetum.idocmonitor.controller.Master", {
             Formatter: Formatter,
             onInit: function () {
+                this.getRouter().getRoute(Constants.routes.MASTER).attachPatternMatched(this.onMatchedRoute, this);
+            },
+
+            /**
+             * Funcion que se ejecuta cuando se activa la ruta.
+             * @param {*} oEvent 
+             */
+            onMatchedRoute: function (oEvent) {
+                let aParams = this.getOwnerComponent().getComponentData().startupParameters;
+
+                if (Object.entries(aParams).length > 0) this.getParamNav(aParams);
+
+                var oHashChanger = sap.ui.core.routing.HashChanger.getInstance();
+
+                var sHash = oHashChanger.getHash();
+                if (sHash) {
+
+                    var sAppStateKey = /(?:sap-iapp-state=)([^&=]+)/.exec(sHash)[1];
+
+                    sap.ushell.Container
+                        .getService("CrossApplicationNavigation")
+                        .getAppState(this.getOwnerComponent(), sAppStateKey)
+                        .done((oSavedAppState) => {
+                            const oKeysRest = JSON.parse(oSavedAppState._sData);
+                            this.onRestoreState(oKeysRest);
+
+                        });
+                }
+
+            },
+
+             /**
+             * Funcion para recuperar los parameros de navegación
+             * @param {*} aParams 
+             */
+             getParamNav: function (aParams) {
+                //let Docnum, Sndprn, PartnLf = "",fechFin, fechIn = "";
+                const oModel = this.getView().getModel(Constants.models.DATAMODEL);
+
+                if (aParams.Docnum) {
+                    oModel.setProperty("/DataFilt/Docnum", atob(aParams.Docnum[0]));
+                }
+
+                if (aParams.Sndprn) {
+                    oModel.setProperty("/DataFilt/Sndprn", atob(aParams.Sndprn[0]));
+                }
+
+                if (aParams.PartnLf) {
+                    oModel.setProperty("/DataFilt/PartnLf", atob(aParams.PartnLf[0]));
+                }
+
+                if (aParams.DateFilt.Desde) {
+                    fechFin = atob(aParams.DateFilt.Desde[0]);
+                    oModel.setProperty("/DataFilt/DateFilt/Desde", new Date(aParams.DateFilt.Desde[0]));
+                    oModel.setProperty("/DataFilt/DateFilt/Hasta", new Date(aParams.DateFilt.Hasta[0]));
+                }
+            },
+
+            /**
+            * Funcion restaurar filtros
+            * @param {*} oKeysRest
+            */
+             onRestoreState: function (oKeysRest) {
+
+                const oModel = this.getView().getModel(Constants.models.DATAMODEL);
+
+                oModel.setProperty("/Docnum", oKeysRest.Docnum);
+                oModel.setProperty("/Sndprn", oKeysRest.Sndprn);
+                oModel.setProperty("/PartnLf", oKeysRest.PartnLf);
+                oModel.setProperty("/DateFilt/Desde", oKeysRest.DateFilt.Desde);
+                oModel.setProperty("/DateFilt/Hasta", oKeysRest.DateFilt.Hasta);
+
+                this.getView().byId(Constants.ids.MAINFILTERBAR).attachInitialized((oEvent) => { this.getView().byId(Constants.ids.MAINFILTERBAR).search() });
 
             },
 
@@ -85,16 +158,16 @@ sap.ui.define([
                 oModel.setProperty("/DataCab", Cab);
             },
 
-             /**
-             * Función encargada de aplicar los filtro introducidos por el usuario para filtrar la tabla
-             */
-             applyFilters: function () {
+            /**
+            * Función encargada de aplicar los filtro introducidos por el usuario para filtrar la tabla
+            */
+            applyFilters: function () {
                 const oKeys = this.getFiltersFromFilterBar(Constants.ids.MAINFILTERBAR);
                 const sPath = Constants.entities.IDOC;
-                
+
                 let oDataRes;
 
-                if(oKeys.length > 0){
+                if (oKeys.length > 0) {
                     sap.ui.core.BusyIndicator.show();
                     Services.getReadData.call(this, sPath, oKeys)
                         .then((oData) => {
@@ -108,16 +181,16 @@ sap.ui.define([
                             //oTable.setBusy(false);
                             sap.ui.core.BusyIndicator.hide();
                             console.log(oError);
-                            if(oError.responseText.search("SQL_CAUGHT_RABAX") >= 0){
+                            if (oError.responseText.search("SQL_CAUGHT_RABAX") >= 0) {
                                 MessageBox.information(this.getView().getModel("i18n").getProperty("mgsNoData"));
                                 this.onResetTables();
-                            }else{
+                            } else {
                                 MessageBox.error(this.getView().getModel("i18n").getProperty("mgsError"));
                             }
                         });
                 }
             },
-            
+
             /**
              * Función encargada de filtrar los datos de la tabla
              * @param {*} oDataRes 
@@ -171,24 +244,24 @@ sap.ui.define([
              * @param {*} oEvent 
              */
             handlePopoverPress: function (oEvent) {
-                
-                    this.oInfoMessageDialog = new Dialog({
-                        type: DialogType.Message,
-                        title: "Information",
-                        state: ValueState.Information,
-                        content: new Text({ text: oEvent.getSource().getProperty("text") }),
-                        beginButton: new Button({
-                            type: ButtonType.Emphasized,
-                            text: "OK",
-                            press: function () {
-                                this.oInfoMessageDialog.close();
-                            }.bind(this)
-                        })
-                    });
-                
-    
+
+                this.oInfoMessageDialog = new Dialog({
+                    type: DialogType.Message,
+                    title: "Information",
+                    state: ValueState.Information,
+                    content: new Text({ text: oEvent.getSource().getProperty("text") }),
+                    beginButton: new Button({
+                        type: ButtonType.Emphasized,
+                        text: "OK",
+                        press: function () {
+                            this.oInfoMessageDialog.close();
+                        }.bind(this)
+                    })
+                });
+
+
                 this.oInfoMessageDialog.open();
-               
+
             },
 
             /**
@@ -202,67 +275,68 @@ sap.ui.define([
              * Finalmente, envía el batch al servidor y espera la respuesta.
              */
             onIntegrar: function (oEvent) {
-                sap.ui.core.BusyIndicator.show();
+                
                 const aIndices = oEvent.getSource().getParent().getParent().getSelectedIndices();
                 const aData = [];
                 const oData = oEvent.getSource().getParent().getParent();
-                if(aIndices.length > 0){
+                if (aIndices.length > 0) {
+                    sap.ui.core.BusyIndicator.show();
                     for (var i = 0; i < aIndices.length; i++) {
                         //let oBjet = this.getView().getModel().createEntry("/IdocMonSet").getObject();
                         //oBjet.Docnum = oData.getContextByIndex(i).getObject().Docnum;
                         aData.push(oData.getContextByIndex(aIndices[i]).getObject());
                     }
-    
+
                     // Creación del proceso batch
                     var manifest = this.getOwnerComponent().getMetadata().getManifest();
                     var sServiceUrl = manifest["sap.app"].dataSources.ZIDOC_MONI_SRV.uri;
-                    var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
-    
+                    var oModel = this.getModel()//new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
+
                     //  Preparamos la llamada en batch al servicio
                     oModel.setHeaders({
                         "Pragma": "no-cache",
                         "Cache-Control": "no-cache, no-store",
                         "batch": "si"
                     });
-    
+
                     // var aBatchOps = [];
                     oModel.setUseBatch(true);
                     oModel.setDeferredGroups(["ProIdocs"]);
-    
+
                     // BATCH
                     var path = Constants.entities.IDOC;
-    
+
                     for (var i = 0; i < aData.length; i++) {
                         oModel.create(path, aData[i], {
                             groupId: "ProIdocs",
-                            success: function(oData, oResponse) {},
-                            error: jQuery.proxy(function(event, oResponse) {
+                            success: function (oData, oResponse) { },
+                            error: jQuery.proxy(function (event, oResponse) {
                                 sap.ui.core.BusyIndicator.hide();
                                 console.log("Error al integrar.");
                             }, this)
                         });
                     }
-    
+
                     oModel.submitChanges({
                         batchGroupId: "ProIdocs",
-                        success: jQuery.proxy(function(odata, response) {
+                        success: jQuery.proxy(function (odata, response) {
                             sap.ui.core.BusyIndicator.hide();
-                            if (odata.__batchResponses[0].response !==  undefined) {
+                            if (odata.__batchResponses[0].response !== undefined) {
                                 MessageBox.error(jQuery.parseJSON(odata.__batchResponses[0].response.body).error.message.value);
-                            }else{
+                            } else {
                                 this.applyFilters();
                             }
-    
+
                         }, this),
-                        error: jQuery.proxy(function(event, oResponse) {
+                        error: jQuery.proxy(function (event, oResponse) {
                             sap.ui.core.BusyIndicator.hide();
                             console.log("Error al integrar.");
                         }, this)
                     });
-                }else{
+                } else {
                     MessageBox.information(this.getView().getModel("i18n").getProperty("msgNoSelect"));
                 }
-            
+
             },
 
             /**
@@ -271,13 +345,13 @@ sap.ui.define([
              * @param {sap.ui.base.Event} oEvent El evento que se produce al presionar el botón eliminar.
              */
             onEliminar: function (oEvent) {
-                
+
                 const aIndices = oEvent.getSource().getParent().getParent().getSelectedIndices();
                 const aData = [];
                 const oData = oEvent.getSource().getParent().getParent();
-                if(aIndices.length > 0){
+                if (aIndices.length > 0) {
 
-                    
+
                     for (var i = 0; i < aIndices.length; i++) {
                         //let oBjet = this.getView().getModel().createEntry("/IdocMonSet").getObject();
                         //oBjet.Docnum = oData.getContextByIndex(i).getObject().Docnum;
@@ -300,44 +374,44 @@ sap.ui.define([
                                 var manifest = this.getOwnerComponent().getMetadata().getManifest();
                                 var sServiceUrl = manifest["sap.app"].dataSources.ZIDOC_MONI_SRV.uri;
                                 var oModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
-                
+
                                 //  Preparamos la llamada en batch al servicio
                                 oModel.setHeaders({
                                     "Pragma": "no-cache",
                                     "Cache-Control": "no-cache, no-store",
                                     "batch": "si"
                                 });
-                
+
                                 // var aBatchOps = [];
                                 oModel.setUseBatch(true);
                                 oModel.setDeferredGroups(["ProIdocs"]);
-                
+
                                 // BATCH
                                 var path = Constants.entities.IDOC;
-                
+
                                 for (var i = 0; i < aData.length; i++) {
-                                    oModel.remove(path + "('" +aData[i].Docnum + "')", {
+                                    oModel.remove(path + "('" + aData[i].Docnum + "')", {
                                         groupId: "ProIdocs",
-                                        success: function(oData, oResponse) {},
-                                        error: jQuery.proxy(function(event, oResponse) {
+                                        success: function (oData, oResponse) { },
+                                        error: jQuery.proxy(function (event, oResponse) {
                                             sap.ui.core.BusyIndicator.hide();
                                             console.log("Error al integrar.");
                                         }, this)
                                     });
                                 }
-                
+
                                 oModel.submitChanges({
                                     batchGroupId: "ProIdocs",
-                                    success: jQuery.proxy(function(odata, response) {
+                                    success: jQuery.proxy(function (odata, response) {
                                         sap.ui.core.BusyIndicator.hide();
-                                        if (odata.__batchResponses[0].response !==  undefined) {
+                                        if (odata.__batchResponses[0].response !== undefined) {
                                             MessageBox.error(jQuery.parseJSON(odata.__batchResponses[0].response.body).error.message.value);
-                                        }else{
+                                        } else {
                                             this.onCambiarEstado(aData, oData, aIndices);
                                         }
-                                        
+
                                     }, this),
-                                    error: jQuery.proxy(function(event, oResponse) {
+                                    error: jQuery.proxy(function (event, oResponse) {
                                         sap.ui.core.BusyIndicator.hide();
                                         console.log("Error al integrar.");
                                     }, this)
@@ -356,16 +430,16 @@ sap.ui.define([
                     dialog.open();
 
                     //this.onCambiarEstado(aData, oData, aIndices);
-                }else{
+                } else {
                     MessageBox.information(this.getView().getModel("i18n").getProperty("msgNoSelect"));
                 }
-            
+
             },
 
 
-            onCambiarEstado: function(aData, oData, aIndices){
+            onCambiarEstado: function (aData, oData, aIndices) {
                 const aDelPro = this.getModel("dataModel").getProperty(oData.getBindingInfo("rows").path);
-                
+
                 //Se elimina el registro de la tabla correspondiente
                 for (var i = aIndices.length - 1; i >= 0; i--) {
                     aDelPro.splice(aIndices[i], 1)
@@ -378,7 +452,55 @@ sap.ui.define([
                 }
 
                 this.onCountData();
-                
+
+            },
+
+            onDetailTrans: function (oEvent) {
+                const oObject = oEvent.getSource().getBindingContext("dataModel").getObject();
+                let oParams = {};
+
+                oParams["VBAK-VBELN"] = '30003101';//oObject.Belnr;
+
+                sap.ushell.Container.getServiceAsync('CrossApplicationNavigation').then((oCrossNav) => {
+
+                    oCrossNav.createEmptyAppStateAsync(this.getOwnerComponent()).then((oAppState) => {
+                        oAppState.setData(this.getView().getModel(Constants.models.DATAMODEL).getProperty("/DataFilt"));
+                        oAppState.save();
+
+                        oCrossNav.toExternal({
+                            target: {
+                                semanticObject: 'SalesSchedulingAgreement',
+                                action: "display"
+                            },
+                            params: oParams,
+                            appStateKey: oAppState.getKey()
+                        });
+
+                        var oHashChanger = sap.ui.core.routing.HashChanger.getInstance();
+
+                        var sNewHash = "?" + "sap-iapp-state=" + oAppState.getKey();
+                        oHashChanger.replaceHash(sNewHash);
+                    })
+
+                });
+            },
+            /**
+             * 
+             * @param {*} oEvent 
+             */
+            onAbrirCompCantidades: function(oEvent){
+                this.onDialog = sap.ui.xmlfragment("com.inetum.idocmonitor.view.fragments.CompMaterial", this);
+
+                this.getView().addDependent(this.onDialog);
+
+                this.onDialog.open();
+            },
+            /**
+             * 
+             * @param {*} oEvent 
+             */
+            onCloseDialog:function(oEvent){
+                this.onDialog.destroy();
             }
 
         });

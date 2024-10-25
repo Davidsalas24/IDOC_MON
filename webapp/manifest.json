@@ -30,6 +30,7 @@
           "semanticObject": "IdocMonSem",
           "action": "Display",
           "title": "{{flpTitle}}",
+          "icon": "sap-icon://sys-monitor",
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"

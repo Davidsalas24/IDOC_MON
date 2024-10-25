@@ -5,7 +5,12 @@
     <f:DynamicPage >
 			<f:title>
 				<f:DynamicPageTitle>
-					
+					 <f:navigationActions>
+                        <Button
+                            icon="sap-icon://nav-back"
+                            press="onNavBack"
+                            tooltip="Back" />
+                    </f:navigationActions>
                     <f:heading>
                         <Title text="{i18n>visuDetaIdo}" />
                     </f:heading>

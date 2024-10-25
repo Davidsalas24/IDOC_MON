@@ -10,7 +10,8 @@ sap.ui.define([], function() {
 			MAINFILTERBAR: "masterFilterBar"
 		},
 		routes: {
-			DETAIL: "RouteDetail"
+			DETAIL: "RouteDetail",
+			MASTER: "RouteMaster"
 		},
 		entities: {
 			IDOC: "/IdocMonSet",
